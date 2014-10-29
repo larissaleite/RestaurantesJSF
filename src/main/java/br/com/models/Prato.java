@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Prato implements Serializable {
@@ -28,6 +29,9 @@ public class Prato implements Serializable {
 	private String ingredientes;
 	@Column(name="imagem")
 	private String imagem;
+	
+	@Transient
+	private int quantidade;
 	
 	public int getId() {
 		return id;
@@ -67,6 +71,14 @@ public class Prato implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 }

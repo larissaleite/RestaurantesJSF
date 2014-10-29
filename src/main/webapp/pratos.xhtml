@@ -25,6 +25,10 @@
         select[size] {
 		 height: 34px; 
 		}
+		
+		.thumbnail > img {
+			min-height: 150px;
+		}
 
     </style>
 
@@ -84,8 +88,7 @@
 						              <br />
 						              <div class="row">
 						              	<div class="col-md-4">
-							              <h:selectOneMenu styleClass="form-control" value="#{pratoMBean.quantidade}" 
-						                                   valueChangeListener="#{pratoMBean.quantidadeChanged}" >
+							              <h:selectOneMenu styleClass="form-control" value="#{prato.quantidade}" >
 						                        <f:selectItems value="#{pratoMBean.quantidades}" />
 						                    </h:selectOneMenu>
 										  </div>

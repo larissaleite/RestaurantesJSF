@@ -31,16 +31,11 @@ public class PratoMBean {
 	
 	private List<Prato> pratos;
 	
-	private String quantidade;
-	
-	private int quant;
-	
 	private Cliente cliente;
 	
 	@PostConstruct
 	public void init() {
 		this.setPratos(restauranteService.getPratos());
-		this.quantidade = "1";
 	}
 
 	public List<Prato> getPratos() {
@@ -52,14 +47,9 @@ public class PratoMBean {
 	}
 	
 	public void adicionar(Prato prato) {
-		System.out.println("quant "+quant);
-		carrinhoService.adicionarPratos(prato, quant);
+		System.out.println("quant "+prato.getQuantidade());
+		carrinhoService.adicionarPratos(prato, prato.getQuantidade());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Adicionado "+prato.getNome()+" com sucesso"));
-	}
-	
-	public void quantidadeChanged(ValueChangeEvent e){
-		System.out.println("--"+e.getNewValue().toString());
-		this.quant = Integer.parseInt(e.getNewValue().toString());
 	}
 	
 	public List<String> getQuantidades() {
@@ -69,14 +59,6 @@ public class PratoMBean {
         quantidades.add("3");
         return quantidades;
     }
-
-	public String getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(String quantidade) {
-		this.quantidade = quantidade;
-	}
 
 	public Cliente getCliente() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
