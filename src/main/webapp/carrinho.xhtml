@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ComidaEmCasa</title>
+  	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" /> <!-- load bootstrap css -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
+
+	<style>
+
+	    body {
+            padding-top:6%;
+            font-family: 'Raleway', serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Raleway', serif;
+        }
+        
+        .panel-heading {
+			text-align:center;
+			font-size:2rem;
+		}
+		
+		th, tbody {
+			text-align:center;
+			font-weight:200;
+		}
+		
+		.btn-table {
+			margin-right:2%;
+		}
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">ComidaEmCasa</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="login.jsf">Entrar no Sistema</a></li>
+					</ul>
+
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+
+        <div class="row">
+        
+        	<h:form>
+			  
+			  <div class="panel panel-default">
+	 	 		<div class="panel-heading">Pedido parcial</div>
+				<table class="table">
+					<thead>
+						<th>Prato</th><th>Quantidade</th><th>Preço</th><th>Total</th><th></th>
+					</thead>
+					<ui:repeat var="prato" value="#{carrinhoMBean.keyAsList}">
+					 
+						<tr>
+							<td>#{prato.nome}</td>
+							<td>#{carrinhoMBean.pratos[prato]}</td>
+							<td>#{prato.preco}</td>
+							<td>#{prato.preco * carrinhoMBean.pratos[prato]}</td>
+							<td>
+								<h:commandLink class="btn btn-default btn-table" actionListener="#{carrinhoMBean.adicionar(prato)}" ajax="true"><span class="glyphicon glyphicon-plus" /></h:commandLink>
+								<h:commandLink class="btn btn-default btn-table" actionListener="#{carrinhoMBean.excluir(prato)}" ajax="true"><span class="glyphicon glyphicon-minus" /></h:commandLink>
+							</td>
+						</tr>
+					 
+					</ui:repeat>
+					
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-8"></div>
+				<div class="col-md-2">
+					<a href="pratos.jsf" class="form-control btn btn-default">Adicionar pratos</a>
+				</div>
+				<div class="col-md-2">
+					<a href="pedido.jsf" class="form-control btn btn-primary">Finalizar pedido</a>
+				</div>
+			</div>
+			  </h:form>
+        </div>
+
+</div>
+
+</body>
+
+</html>

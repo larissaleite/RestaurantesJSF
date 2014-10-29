@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ComidaEmCasa</title>
+  	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" /> <!-- load bootstrap css -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
+
+	<style>
+
+	    body {
+            padding-top:6%;
+            font-family: 'Raleway', serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Raleway', serif;
+        }
+		
+		.panel-heading {
+			text-align:center;
+			font-size:2rem;
+		}
+		
+		th, tbody {
+			text-align:center;
+			font-weight:200;
+		}
+		
+		select[size] {
+		 height: 34px; 
+		}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">ComidaEmCasa</a>
+				</div>
+
+			</div><!-- /.container-fluid -->
+		</nav>
+        <h:form>
+        
+        <ui:include src="mensagem_grow.xhtml" />
+
+        <div class="row">
+        	<div class="col-md-2"></div>
+        	<div class="col-md-8">
+			  
+			  <div class="panel panel-default">
+	 	 		<div class="panel-heading">Pedido final</div>
+				<table class="table">
+					<thead>
+						<th>Prato</th><th>Quantidade</th><th>Preço</th><th>Total</th>
+					</thead>
+					<ui:repeat var="prato" value="#{pedidoMBean.keyAsList}">
+					 
+						<tr>
+							<td>#{prato.nome}</td>
+							<td>#{pedidoMBean.pratos[prato]}</td>
+							<td>#{prato.preco}</td>
+							<td>#{prato.preco * pedidoMBean.pratos[prato]}</td>
+						</tr>
+					 
+					</ui:repeat>
+					
+				</table>
+			  </div>
+			</div>			
+			
+			<div class="col-md-2"></div>
+		</div>
+		
+		<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+				<hr />
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-6">	
+							<h3>Cliente</h3>
+							<p>Nome: #{pedidoMBean.cliente.nome}</p>
+							<p>Email: #{pedidoMBean.cliente.email}</p>
+							<p>Endereço: #{pedidoMBean.cliente.endereco}</p>
+							<p>Telefone: #{pedidoMBean.cliente.telefone}</p>		
+						</div>
+						<div class="col-md-6">	
+							<h4>Pagamento</h4>
+							
+							<div class="row">
+				              <div class="col-xs-6">
+				              	  <span>Nome no cartão</span>
+				                  <h:inputText value="#{pedidoMBean.cartao.nome}"  styleClass="form-control" id="nome" type="text" name="nome" />
+				              </div>
+				              <div class="col-xs-6">
+				              	<span>Número do cartão</span>
+				                 <h:inputText value="#{pedidoMBean.cartao.numero}"  styleClass="form-control" id="numero" type="text" name="numero" />
+				              </div>
+				          </div>
+				
+				          <div class="row">
+				              <div class="col-xs-6">
+				                  <span>Código de segurança</span>
+				                  <h:inputText value="#{pedidoMBean.cartao.codigoSeguranca}"  styleClass="form-control" id="codigoSeguranca" type="text" name="codigoSeguranca" />
+				              </div>
+				              <div class="col-xs-6">
+				              	  <span>Data de vencimento</span>
+				                  <h:inputText value="#{pedidoMBean.cartao.dataVencimento}"  styleClass="form-control" id="dataVencimento" type="text" name="dataVencimento">
+				                  	<f:convertDateTime pattern="yyyy-mm-dd" />
+				                  </h:inputText>
+				              </div>
+				          </div>
+				          <br />
+				          <div class="row">
+				          	<div class="col-md-12">
+				          		<h:selectOneMenu styleClass="form-control" value="#{pedidoMBean.cartao.tipo}">
+							        <f:selectItems value="#{pedidoMBean.cartoesTipos}" />
+							    </h:selectOneMenu>
+				          	</div>
+											          	
+				          </div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>	
+			
+			<br /><br />
+			
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-4">
+							<h:commandButton styleClass="form-control btn btn-success" action="#{pedidoMBean.confirmarPedido}" value="Confirmar"></h:commandButton>
+						</div>
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-4">
+							<h:commandButton styleClass="form-control btn btn-danger" action="#{pedidoMBean.cancelarPedido}" value="Cancelar e sair"></h:commandButton>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			
+			
+			
+			</h:form>
+
+</div>
+
+</body>
+
+</html>

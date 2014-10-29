@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<p:outputPanel id="panelMensagens">
+	
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js" />
+		
+		<link rel="stylesheet" href="pnotify.custom.min.css" charset="utf-8" />
+			
+		<script type="text/javascript" src="pnotify.custom.min.js" charset="utf-8"></script>
+		
+		<script type="text/javascript" src="pnotify-util.js"></script>
+	
+		<div class="mensagens">
+			<c:forEach items="${facesContext.getMessageList()}" var="msg">
+				<c:choose>
+					<c:when test="#{msg.getSeverity() eq 'ERROR 2'}">
+						<h:outputScript>mostrar_mensagem("#{msg.getDetail()}", 'error');</h:outputScript>
+					</c:when>
+					<c:when test="${msg.getSeverity() eq 'WARN 1'}">
+						<h:outputScript>mostrar_mensagem("#{msg.getDetail()}", 'notice');</h:outputScript>
+					</c:when>
+					<c:when test="${msg.getSeverity() eq 'INFO 0'}">
+						<h:outputScript>mostrar_mensagem("#{msg.getDetail()}", 'success');</h:outputScript>
+					</c:when>
+					<c:otherwise>
+						<h:outputScript>mostrar_mensagem("#{msg.getDetail()}", , 'info');</h:outputScript>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>
+	
+	</p:outputPanel>
+</html>
