@@ -37,7 +37,7 @@ public class Pedido implements Serializable {
 	private Cliente cliente;
 	
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_cartao")
+    @JoinColumn(name="cartao_id")
 	private Cartao cartao;
     
     @Column(name="total", nullable=false)

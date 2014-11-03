@@ -57,14 +57,6 @@
 					<a class="navbar-brand" href="/">ComidaEmCasa</a>
 				</div>
 
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="login.jsf">Entrar no Sistema</a></li>
-					</ul>
-
-				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 
@@ -86,7 +78,7 @@
 							<td>#{prato.preco}</td>
 							<td>#{prato.preco * carrinhoMBean.pratos[prato]}</td>
 							<td>
-								<h:commandLink class="btn btn-default btn-table" actionListener="#{carrinhoMBean.adicionar(prato)}" ajax="true"><span class="glyphicon glyphicon-plus" /></h:commandLink>
+								<h:commandLink class="btn btn-default btn-table" actionListener="#{carrinhoMBean.adicionar(prato)}" ajax="true" process="this"><span class="glyphicon glyphicon-plus" /></h:commandLink>
 								<h:commandLink class="btn btn-default btn-table" actionListener="#{carrinhoMBean.excluir(prato)}" ajax="true"><span class="glyphicon glyphicon-minus" /></h:commandLink>
 							</td>
 						</tr>

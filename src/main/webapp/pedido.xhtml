@@ -58,7 +58,7 @@
 
 			</div><!-- /.container-fluid -->
 		</nav>
-        <h:form>
+        <h:form id="formPedido">
         
         <ui:include src="mensagem_grow.xhtml" />
 
@@ -158,12 +158,12 @@
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-md-4">
-							<h:commandButton styleClass="form-control btn btn-danger" action="#{pedidoMBean.cancelarPedido}" value="Cancelar e sair"></h:commandButton>
+							<h:commandButton styleClass="form-control btn btn-danger" action="#{pedidoMBean.cancelarPedido}" id="cancelarPedido" value="Cancelar e sair"></h:commandButton>
 						</div>
 						<div class="col-md-4">
 						</div>
 						<div class="col-md-4">
-							<h:commandButton styleClass="form-control btn btn-success" action="#{pedidoMBean.confirmarPedido}" value="Confirmar"></h:commandButton>
+							<h:commandButton styleClass="form-control btn btn-success" action="#{pedidoMBean.confirmarPedido}" value="Confirmar" id="confirmarPedido"></h:commandButton>
 						</div>
 					</div>
 				</div>

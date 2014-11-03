@@ -11,7 +11,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.10</version>
       <scope>test</scope>
     </dependency>
     
@@ -120,6 +120,18 @@
 			<artifactId>jersey-server</artifactId>
 			<version>1.8</version>
 		</dependency>
+		
+		 <dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>2.26.0</version>
+  </dependency>
+  
+  <dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-server</artifactId>
+    <version>2.26.0</version>
+  </dependency>
   
   </dependencies>
   <build>

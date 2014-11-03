@@ -31,11 +31,16 @@ public class PratoMBean {
 	
 	private List<Prato> pratos;
 	
+	private List<Prato> pratosRecomendados;
+	
 	private Cliente cliente;
 	
 	@PostConstruct
 	public void init() {
 		this.setPratos(restauranteService.getPratos());
+		if (pratosRecomendados == null)
+			pratosRecomendados = restauranteService.getPratosRecomendados(getCliente());
+		System.out.println(pratosRecomendados.size());
 	}
 
 	public List<Prato> getPratos() {
@@ -46,6 +51,14 @@ public class PratoMBean {
 		this.pratos = pratos;
 	}
 	
+	public List<Prato> getPratosRecomendados() {
+		return pratosRecomendados;
+	}
+
+	public void setPratosRecomendados(List<Prato> pratosRecomendados) {
+		this.pratosRecomendados = pratosRecomendados;
+	}
+
 	public void adicionar(Prato prato) {
 		System.out.println("quant "+prato.getQuantidade());
 		carrinhoService.adicionarPratos(prato, prato.getQuantidade());

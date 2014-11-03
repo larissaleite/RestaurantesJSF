@@ -55,14 +55,14 @@
 			    <div class="login">
 			        <h4> Acesse sua conta <a href="cadastro.jsf">ou cadastre-se</a> </h4>
 			
-			        <h:form>
+			        <h:form id="formLogin">
 					  <span>Email</span>
 			          <h:inputText value="#{clienteMBean.email}"  styleClass="form-control" id="id_email" type="text" name="email" maxlength="50" placeholder="Email" />	
 			          <br />
 			          <span>Senha</span>
 			          <h:inputSecret value="#{clienteMBean.senha}"  styleClass="form-control" id="id_senha" type="password" name="senha" maxlength="20" placeholder="Senha" />
 			          <hr />
-			          <h:commandButton action="#{clienteMBean.autenticar}" styleClass="btn btn-default form-control" value="Entrar"></h:commandButton>
+			          <h:commandButton action="#{clienteMBean.autenticar}" styleClass="btn btn-default form-control" value="Entrar" id="entrarLogin"></h:commandButton>
 			        </h:form>
 			    </div>
 			</div>

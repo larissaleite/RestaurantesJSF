@@ -62,7 +62,7 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 		
-		<h:form>
+		<h:form id="formPrato">
 		
 		<ui:include src="mensagem_grow.xhtml" />
 		
@@ -76,6 +76,36 @@
             	<h3>Escolha seu pedido, #{pratoMBean.cliente.nome}</h3>
 				<br />
             	<div class="row">
+            		<h4>Pratos recomendados para você</h4>
+            		<ui:repeat value="#{pratoMBean.pratosRecomendados}" var="prato" varStatus="loop">
+            		 	<h:outputText value="&lt;div class='row'&gt;" escape="false" rendered="#{loop.index % 3 == 0}" />
+	            			<div class="col-md-4">
+					            <div class="thumbnail">
+						            <img src="#{prato.imagem}" />
+						            <div class="caption">
+						              <h4>#{prato.nome}</h4>
+						              <p>Ingredientes: #{prato.ingredientes}</p>
+						              <p>Preço: R$#{prato.preco}</p>
+						              <br />
+						              <div class="row">
+						              	<div class="col-md-4">
+							              <h:selectOneMenu styleClass="form-control" value="#{prato.quantidade}" >
+						                        <f:selectItems value="#{pratoMBean.quantidades}" />
+						                    </h:selectOneMenu>
+										  </div>
+										  <div class="col-md-8">
+							              	<h:commandButton styleClass="form-control btn btn-primary" value="Adicionar" actionListener="#{pratoMBean.adicionar(prato)}" id="adicionarPrato" ajax="true"/>
+						            	  </div>
+						            	</div>
+						            </div>
+					          	</div>
+		          			</div>
+	          			<h:outputText value="&lt;/div&gt;" escape="false" rendered="#{loop.last or (loop.index + 1) % 3 == 0}" />
+	          		</ui:repeat>
+            		
+            		<hr />
+            		
+            		<h4>Todos os nossos pratos</h4>
             		<ui:repeat value="#{pratoMBean.pratos}" var="prato" varStatus="loop">
             		 	<h:outputText value="&lt;div class='row'&gt;" escape="false" rendered="#{loop.index % 3 == 0}" />
 	            			<div class="col-md-4">
@@ -93,7 +123,7 @@
 						                    </h:selectOneMenu>
 										  </div>
 										  <div class="col-md-8">
-							              	<h:commandButton styleClass="form-control btn btn-primary" value="Adicionar" actionListener="#{pratoMBean.adicionar(prato)}" ajax="true"/>
+							              	<h:commandButton styleClass="form-control btn btn-primary" value="Adicionar" actionListener="#{pratoMBean.adicionar(prato)}" id="adicionarPrato" ajax="true"/>
 						            	  </div>
 						            	</div>
 						            </div>
