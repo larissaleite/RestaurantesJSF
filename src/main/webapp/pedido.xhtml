@@ -2,7 +2,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+<h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -37,7 +37,7 @@
 		}
     </style>
 
-</head>
+</h:head>
 
 <body>
 
@@ -111,6 +111,19 @@
 						</div>
 						<div class="col-md-6">	
 							<h4>Pagamento</h4>
+							
+							<h:selectOneRadio value="#{pedidoMBean.tipoPagamento}">
+					   			<f:selectItem itemValue="cartao" itemLabel="Cartão" />
+					   			<f:selectItem itemValue="paypal" itemLabel="Paypal" />
+					   			<f:selectItem itemValue="vale" itemLabel="Vale Alimentação" />
+					   			<f:ajax render="teste"></f:ajax>
+					   		</h:selectOneRadio>
+					   		
+					   		<h:panelGroup id="teste">
+						   		<h:panelGroup id="teste2" rendered="#{pedidoMBean.tipoPagamento eq 'vale'}">
+						   			<p>Hello</p>
+						   		</h:panelGroup>
+						   	</h:panelGroup>
 							
 							<div class="row">
 				              <div class="col-xs-6">

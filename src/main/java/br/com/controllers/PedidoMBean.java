@@ -44,6 +44,8 @@ public class PedidoMBean {
 	private Cartao cartao;
 	
 	private List<Tipo> cartoesTipos;
+	
+	private String tipoPagamento;
 	 
     public List<Tipo> getCartoesTipos() {
         return Arrays.asList(Tipo.values());
@@ -60,6 +62,7 @@ public class PedidoMBean {
 	@PostConstruct
 	public void init() {
 		this.setPratos(carrinhoService.getPratos());
+		this.setTipoPagamento("cartao");
 	}
 	
 	public Map<Prato, Integer> getPratos() {
@@ -149,6 +152,14 @@ public class PedidoMBean {
 		session.invalidate();
 		
 		return "login.jsf";
+	}
+
+	public String getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(String tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
 	}
 
 }

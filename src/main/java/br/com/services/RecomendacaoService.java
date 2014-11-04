@@ -15,11 +15,15 @@ public class RecomendacaoService {
 	@Autowired
 	private RestauranteService restauranteService;
 	
+	private Recomendador recomendadorData;
+	private Recomendador recomendadorCliente;
+	private Recomendador recomendadorTopPedidos;
+	
 	public List<Prato> getPratosRecomendados(Cliente cliente) {
 		
-		Recomendador recomendadorData = new RecomendadorData();
-		Recomendador recomendadorCliente = new RecomendadorCliente();
-		Recomendador recomendadorTopPedidos = new RecomendadorTopPedidos();
+		recomendadorData = new RecomendadorData();
+		recomendadorCliente = new RecomendadorCliente();
+		recomendadorTopPedidos = new RecomendadorTopPedidos();
 		
 		recomendadorData.setRestauranteService(restauranteService);
 		recomendadorCliente.setRestauranteService(restauranteService);
