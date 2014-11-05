@@ -122,8 +122,8 @@ public class PedidoMBean {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pedido confirmado! Obrigada, em breve ele será entregue em sua casa!"));
 		
-		HttpSession session = ((HttpServletRequest) (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-		session.invalidate();
+		/*HttpSession session = ((HttpServletRequest) (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+		session.invalidate();*/
 		
 		return "login.jsf";
 	}
