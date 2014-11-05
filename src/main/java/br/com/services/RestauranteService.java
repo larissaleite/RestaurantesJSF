@@ -7,13 +7,19 @@ import org.springframework.stereotype.Service;
 
 import br.com.dao.interfaces.IDaoCartao;
 import br.com.dao.interfaces.IDaoCliente;
+import br.com.dao.interfaces.IDaoPagamento;
+import br.com.dao.interfaces.IDaoPayPal;
 import br.com.dao.interfaces.IDaoPedido;
 import br.com.dao.interfaces.IDaoPrato;
 import br.com.dao.interfaces.IDaoPromocao;
+import br.com.dao.interfaces.IDaoValeAlimentacao;
 import br.com.models.Cartao;
 import br.com.models.Cliente;
+import br.com.models.Pagamento;
+import br.com.models.PayPal;
 import br.com.models.Pedido;
 import br.com.models.Prato;
+import br.com.models.ValeAlimentacao;
 
 @Service("restauranteService")
 public class RestauranteService {
@@ -32,6 +38,15 @@ public class RestauranteService {
 	
 	@Autowired
 	private IDaoPromocao daoPromocao;
+	
+	@Autowired
+	private IDaoPagamento daoPagamento;
+	
+	@Autowired
+	private IDaoValeAlimentacao daoValeAlimentacao;
+	
+	@Autowired
+	private IDaoPayPal daoPayPal;
 	
 	@Autowired
 	private RecomendacaoService recomendacaoService;
@@ -54,6 +69,18 @@ public class RestauranteService {
 	
 	public void cadastrarCartao(Cartao cartao) {
 		daoCartao.cadastrar(cartao);
+	}
+	
+	public void cadastrarPagamento(Pagamento pagamento) {
+		daoPagamento.cadastrar(pagamento);
+	}
+	
+	public void cadastrarPayPal(PayPal payPal) {
+		daoPayPal.cadastrar(payPal);
+	}
+	
+	public void cadastrarValeAlimentacao(ValeAlimentacao valeAlimentacao) {
+		daoValeAlimentacao.cadastrar(valeAlimentacao);
 	}
 	
 	public void cadastrarPedido(Pedido pedido) {

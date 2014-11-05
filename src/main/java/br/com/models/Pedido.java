@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pedido implements Serializable {
@@ -35,16 +36,16 @@ public class Pedido implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cliente_id")
 	private Cliente cliente;
-	
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="cartao_id")
-	private Cartao cartao;
-    
+
     @Column(name="total", nullable=false)
     private float total;
     
     @Column(name="data", nullable=false)
     private Date data;
+    
+    @OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="pagamento_id")
+	private Pagamento pagamento;
 
 	public int getId() {
 		return id;
@@ -70,14 +71,6 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 	
-	public Cartao getCartao() {
-		return cartao;
-	}
-	
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
-	}
-	
 	public float getTotal() {
 		return total;
 	}
@@ -92,6 +85,14 @@ public class Pedido implements Serializable {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 	
 }

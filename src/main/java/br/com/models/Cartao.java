@@ -5,12 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Cartao implements Serializable {
@@ -38,10 +35,6 @@ public class Cartao implements Serializable {
 	private int codigoSeguranca;
 	@Column(name="tipo", nullable=false)
 	private Tipo tipo;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
 	
 	public int getId() {
 		return id;
@@ -81,14 +74,6 @@ public class Cartao implements Serializable {
 	
 	public void setCodigoSeguranca(int codigoSeguranca) {
 		this.codigoSeguranca = codigoSeguranca;
-	}
-	
-	public Cliente getCliente() {
-		return cliente;
-	}
-	
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 	
 	public Tipo getTipo() {

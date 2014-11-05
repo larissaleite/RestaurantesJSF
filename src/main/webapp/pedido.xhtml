@@ -33,7 +33,15 @@
 		}
 		
 		select[size] {
-		 height: 34px; 
+			height: 34px; 
+		}
+		
+		table {
+			width: 100%;
+		}
+		
+		td > label {
+			margin-left:8%;
 		}
     </style>
 
@@ -116,47 +124,72 @@
 					   			<f:selectItem itemValue="cartao" itemLabel="Cartão" />
 					   			<f:selectItem itemValue="paypal" itemLabel="Paypal" />
 					   			<f:selectItem itemValue="vale" itemLabel="Vale Alimentação" />
-					   			<f:ajax render="teste"></f:ajax>
+					   			<f:ajax render="pagamentos confirmarPagamento"></f:ajax>
 					   		</h:selectOneRadio>
 					   		
-					   		<h:panelGroup id="teste">
-						   		<h:panelGroup id="teste2" rendered="#{pedidoMBean.tipoPagamento eq 'vale'}">
-						   			<p>Hello</p>
-						   		</h:panelGroup>
-						   	</h:panelGroup>
+					   		<h:panelGroup id="pagamentos">
 							
-							<div class="row">
-				              <div class="col-xs-6">
-				              	  <span>Nome no cartão</span>
-				                  <h:inputText value="#{pedidoMBean.cartao.nome}"  styleClass="form-control" id="nome" type="text" name="nome" />
-				              </div>
-				              <div class="col-xs-6">
-				              	<span>Número do cartão</span>
-				                 <h:inputText value="#{pedidoMBean.cartao.numero}"  styleClass="form-control" id="numero" type="text" name="numero" />
-				              </div>
-				          </div>
-				
-				          <div class="row">
-				              <div class="col-xs-6">
-				                  <span>Código de segurança</span>
-				                  <h:inputText value="#{pedidoMBean.cartao.codigoSeguranca}"  styleClass="form-control" id="codigoSeguranca" type="text" name="codigoSeguranca" />
-				              </div>
-				              <div class="col-xs-6">
-				              	  <span>Data de vencimento</span>
-				                  <h:inputText value="#{pedidoMBean.cartao.dataVencimento}"  styleClass="form-control" id="dataVencimento" type="text" name="dataVencimento">
-				                  	<f:convertDateTime pattern="yyyy-mm-dd" />
-				                  </h:inputText>
-				              </div>
-				          </div>
-				          <br />
-				          <div class="row">
-				          	<div class="col-md-12">
-				          		<h:selectOneMenu styleClass="form-control" value="#{pedidoMBean.cartao.tipo}">
-							        <f:selectItems value="#{pedidoMBean.cartoesTipos}" />
-							    </h:selectOneMenu>
-				          	</div>
-											          	
-				          </div>
+								<h:panelGroup id="cartao" rendered="#{pedidoMBean.tipoPagamento eq 'cartao'}">
+									<div class="row">
+						              <div class="col-xs-6">
+						              	  <span>Nome no cartão</span>
+						                  <h:inputText value="#{pedidoCartaoMBean.cartao.nome}"  styleClass="form-control" id="nome" type="text" name="nome" />
+						              </div>
+						              <div class="col-xs-6">
+						              	<span>Número do cartão</span>
+						                 <h:inputText value="#{pedidoCartaoMBean.cartao.numero}"  styleClass="form-control" id="numero" type="text" name="numero" />
+						              </div>
+						          	</div>
+						
+						          <div class="row">
+						              <div class="col-xs-6">
+						                  <span>Código de segurança</span>
+						                  <h:inputText value="#{pedidoCartaoMBean.cartao.codigoSeguranca}"  styleClass="form-control" id="codigoSeguranca" type="text" name="codigoSeguranca" />
+						              </div>
+						              <div class="col-xs-6">
+						              	  <span>Data de vencimento</span>
+						                  <h:inputText value="#{pedidoCartaoMBean.cartao.dataVencimento}"  styleClass="form-control" id="dataVencimento" type="text" name="dataVencimento">
+						                  	<f:convertDateTime pattern="yyyy-mm-dd" />
+						                  </h:inputText>
+						              </div>
+						          </div>
+						          <br />
+						          <div class="row">
+						          	<div class="col-md-12">
+						          		<h:selectOneMenu styleClass="form-control" value="#{pedidoCartaoMBean.cartao.tipo}">
+									        <f:selectItems value="#{pedidoMBean.cartoesTipos}" />
+									    </h:selectOneMenu>
+						          	</div>			          	
+						          </div>
+					          	</h:panelGroup>
+					          
+					          	<h:panelGroup id="vale" rendered="#{pedidoMBean.tipoPagamento eq 'vale'}">
+						   			<div class="row">
+						              <div class="col-xs-6">
+						                  <span>Número</span>
+						                  <h:inputText value="#{pedidoValeMBean.valeAlimentacao.numero}" styleClass="form-control" id="numero_vale" type="text" name="numero_vale" />
+						              </div>
+						              <div class="col-xs-6">
+						              	  <span>Nome</span>
+						                  <h:inputText value="#{pedidoValeMBean.valeAlimentacao.nome}"  styleClass="form-control" id="nome_vale" type="text" name="nome_vale" />
+						              </div>
+						          	</div>
+						   		</h:panelGroup>
+						   		
+						   		<h:panelGroup id="paypal" rendered="#{pedidoMBean.tipoPagamento eq 'paypal'}">
+						   			<div class="row">
+						              <div class="col-xs-6">
+						                  <span>Login</span>
+						                  <h:inputText value="#{pedidoPaypalMBean.payPal.login}" styleClass="form-control" id="login_paypal" type="text" name="login_paypal" />
+						              </div>
+						              <div class="col-xs-6">
+						              	  <span>Senha</span>
+						                  <h:inputSecret value="#{pedidoPaypalMBean.payPal.senha}"  styleClass="form-control" id="senha_paypal" type="password" name="senha_paypal" />
+						              </div>
+						          	</div>
+						   		</h:panelGroup>
+					          
+							</h:panelGroup>
 							
 						</div>
 					</div>
@@ -176,16 +209,18 @@
 						<div class="col-md-4">
 						</div>
 						<div class="col-md-4">
-							<h:commandButton styleClass="form-control btn btn-success" action="#{pedidoMBean.confirmarPedido}" value="Confirmar" id="confirmarPedido"></h:commandButton>
+							<h:panelGroup id="confirmarPagamento">
+								<h:commandButton rendered="#{pedidoMBean.tipoPagamento eq 'cartao'}" styleClass="form-control btn btn-success" action="#{pedidoCartaoMBean.confirmarPagamento}" value="Confirmar" id="confirmarPedidoCartao"></h:commandButton>
+								<h:commandButton rendered="#{pedidoMBean.tipoPagamento eq 'vale'}" styleClass="form-control btn btn-success" action="#{pedidoValeMBean.confirmarPagamento}" value="Confirmar" id="confirmarPedidoVale"></h:commandButton>
+								<h:commandButton rendered="#{pedidoMBean.tipoPagamento eq 'paypal'}" styleClass="form-control btn btn-success" action="#{pedidoPaypalMBean.confirmarPagamento}" value="Confirmar" id="confirmarPedidoPayPal"></h:commandButton>
+							</h:panelGroup>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>
-			
-			
-			
-			</h:form>
+	
+	</h:form>
 
 </div>
 

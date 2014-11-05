@@ -9,43 +9,47 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.com.models.Cartao;
 import br.com.models.Cartao.Tipo;
 import br.com.models.Cliente;
+import br.com.models.Pagamento;
 import br.com.models.Pedido;
 import br.com.models.PedidoItem;
 import br.com.models.Prato;
 import br.com.services.CarrinhoService;
+import br.com.services.PagamentoService;
 import br.com.services.RestauranteService;
 
 @Controller
-@Scope("request")
+@ViewScoped //ViewScoped necessário por conta do h:commandButton com rendered
 public class PedidoMBean {
 	
 	@Autowired
-	private RestauranteService restauranteService;
+	protected RestauranteService restauranteService;
+	
+	@Autowired
+	protected PagamentoService pagamentoService;
 	
 	@Autowired
 	private CarrinhoService carrinhoService;
 	
 	private Map<Prato, Integer> pratos;
 	
-	private Cliente cliente;
-	
-	private Cartao cartao;
+	protected Cliente cliente;
 	
 	private List<Tipo> cartoesTipos;
 	
 	private String tipoPagamento;
+	
+	protected float total;
 	 
     public List<Tipo> getCartoesTipos() {
         return Arrays.asList(Tipo.values());
@@ -54,15 +58,12 @@ public class PedidoMBean {
     public void setCartoesTipos(List<Tipo> cartoesTipos) {
     	this.cartoesTipos = cartoesTipos;
     }
-    
-    public PedidoMBean() {
-		cartao = new Cartao();
-    }
 	
 	@PostConstruct
 	public void init() {
 		this.setPratos(carrinhoService.getPratos());
 		this.setTipoPagamento("cartao");
+		this.setTotal(10);
 	}
 	
 	public Map<Prato, Integer> getPratos() {
@@ -91,23 +92,13 @@ public class PedidoMBean {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	public Cartao getCartao() {
-		return cartao;
-	}
 
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
-	}
-
-	public String confirmarPedido() {
+	public String confirmarPedido(Pagamento pagamento) {
 		
-		cartao.setCliente(getCliente());
-		
-		restauranteService.cadastrarCartao(cartao);
+		restauranteService.cadastrarPagamento(pagamento);
 		
 		Pedido pedido = new Pedido();
-		pedido.setCartao(cartao);
+		pedido.setPagamento(pagamento);
 		pedido.setCliente(getCliente());
 		pedido.setData(new Date(new java.util.Date().getTime()));
 		
@@ -160,6 +151,14 @@ public class PedidoMBean {
 
 	public void setTipoPagamento(String tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
 	}
 
 }
