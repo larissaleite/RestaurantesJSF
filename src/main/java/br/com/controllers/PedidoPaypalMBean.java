@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.models.Pagamento;
 import br.com.models.PayPal;
+import br.com.services.PagamentoPayPal;
 
 @Controller
 public class PedidoPaypalMBean extends PedidoMBean {
@@ -23,8 +24,8 @@ public class PedidoPaypalMBean extends PedidoMBean {
 	}
 
 	public void confirmarPagamento() { 
-		this.pagamentoService.pagamentoPayPal(total, payPal.getLogin(), payPal.getSenha());
-		this.restauranteService.cadastrarPayPal(payPal);
+		this.pagamentoService.pagamento(total, new PagamentoPayPal(payPal), restauranteService);
+		//this.restauranteService.cadastrarPayPal(payPal);
 		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setPayPal(payPal);

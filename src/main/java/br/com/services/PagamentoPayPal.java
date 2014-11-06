@@ -1,34 +1,18 @@
 package br.com.services;
 
+import br.com.models.PayPal;
+
 public class PagamentoPayPal implements PagamentoStrategy {
 	
-	private String login;
-	private String senha;
+	private PayPal payPal;
 	
-	public PagamentoPayPal (String login, String senha) {
-		this.login = login;
-		this.senha = senha;
+	public PagamentoPayPal (PayPal payPal) {
+		this.payPal = payPal;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public void pagar(float valor) {
-		System.out.println("pagamento paypal");
-		
+	public void pagar(float valor, RestauranteService restauranteService) {
+		/* método para validações necessárias */
+		restauranteService.cadastrarPayPal(payPal);
 	}
 
 }

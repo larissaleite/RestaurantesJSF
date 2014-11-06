@@ -1,33 +1,18 @@
 package br.com.services;
 
+import br.com.models.ValeAlimentacao;
+
 public class PagamentoValeAlimentacao implements PagamentoStrategy {
 	
-	private String numero;
-	private String nome;
+	private ValeAlimentacao valeAlimentacao;
 	
-	public PagamentoValeAlimentacao(String numero, String nome) {
-		this.numero = numero;
-		this.nome = nome;
+	public PagamentoValeAlimentacao(ValeAlimentacao valeAlimentacao) {
+		this.valeAlimentacao = valeAlimentacao;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void pagar(float valor) {
-		System.out.println("pagamento vale");
+	public void pagar(float valor, RestauranteService restauranteService) {
+		/* método para validações necessárias */
+		restauranteService.cadastrarValeAlimentacao(valeAlimentacao);
 	}
 
 }

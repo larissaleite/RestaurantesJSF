@@ -1,9 +1,12 @@
 package br.com.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import br.com.models.Cartao;
 import br.com.models.Pagamento;
+import br.com.services.PagamentoCartao;
+import br.com.services.PagamentoStrategy;
 
 @Controller
 public class PedidoCartaoMBean extends PedidoMBean {
@@ -23,9 +26,8 @@ public class PedidoCartaoMBean extends PedidoMBean {
 	}
 
 	public void confirmarPagamento() {
-		//registrar cartao dentro de pagar?
-		this.pagamentoService.pagamentoCartao(total, cartao.getNome(), cartao.getNumero(), cartao.getDataVencimento(), cartao.getCodigoSeguranca(), cartao.getTipo());
-		this.restauranteService.cadastrarCartao(cartao);
+		this.pagamentoService.pagamento(total, new PagamentoCartao(cartao), this.restauranteService);
+		//this.restauranteService.cadastrarCartao(cartao);
 		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setCartao(cartao);

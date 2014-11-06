@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.models.Pagamento;
 import br.com.models.ValeAlimentacao;
+import br.com.services.PagamentoValeAlimentacao;
 
 @Controller
 public class PedidoValeMBean extends PedidoMBean {
@@ -23,8 +24,8 @@ public class PedidoValeMBean extends PedidoMBean {
 	}
 
 	public void confirmarPagamento() {
-		this.pagamentoService.pagamentoValeAlimentacao(total, valeAlimentacao.getNumero(), valeAlimentacao.getNome());
-		this.restauranteService.cadastrarValeAlimentacao(valeAlimentacao);
+		this.pagamentoService.pagamento(total, new PagamentoValeAlimentacao(valeAlimentacao), restauranteService);
+		//this.restauranteService.cadastrarValeAlimentacao(valeAlimentacao);
 		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setValeAlimentacao(valeAlimentacao);
